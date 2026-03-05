@@ -1,8 +1,8 @@
 [solution]
-name = "my-team-solution-v1"      # Solution name
-definition = "fused_moe"          # Track: fused_moe | sparse_attention | gated_delta_net
-author = "team-name"              # Team/author name
+name = "dogacel-solution-v1"        # Solution name
+definition = "dsa_sparse_attention_h16_ckv512_kpe64_topk2048_ps64"     # Track: fused_moe | sparse_attention | gated_delta_net
+author = "Doğaç Eldenk"             # Team/author name
 
 [build]
-language = "triton"               # triton | cuda
-entry_point = "kernel"            # Kernel function name
+language = "triton"                 # triton | cuda
+entry_point = "kernel.py::kernel"   # Kernel function name
