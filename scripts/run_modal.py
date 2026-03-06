@@ -27,16 +27,21 @@ TRACE_SET_PATH = "/data"
 
 image = (
     modal.Image.debian_slim(python_version="3.12")
-    .pip_install("flashinfer-bench", "torch", "triton", "numpy")
+    .pip_install("flashinfer-bench", "torch", "triton", "numpy", "nvidia-cutlass-dsl")
 )
 
 
 @app.function(image=image, gpu="B200:1", timeout=3600, volumes={TRACE_SET_PATH: trace_volume})
 def run_benchmark(solution: Solution, config: BenchmarkConfig = None) -> dict:
     """Run benchmark on Modal B200 and return results."""
+    import logging
+    logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
+    logger = logging.getLogger(__name__)
+
     if config is None:
         config = BenchmarkConfig(warmup_runs=3, iterations=100, num_trials=5)
 
+    logger.info(f"Loading trace set from {TRACE_SET_PATH}")
     trace_set = TraceSet.from_path(TRACE_SET_PATH)
 
     if solution.definition not in trace_set.definitions:

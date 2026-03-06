@@ -42,8 +42,10 @@ def pack_solution(output_path: Path = None) -> Path:
     entry_point = build_config["entry_point"]
 
     # Determine source directory based on language
+    # "cutedsl" uses the triton builder (Python-based JIT) but from a separate folder
+    source_dir_name = build_config.get("source_dir", language)
     if language == "triton":
-        source_dir = PROJECT_ROOT / "solution" / "triton"
+        source_dir = PROJECT_ROOT / "solution" / source_dir_name
     elif language == "cuda":
         source_dir = PROJECT_ROOT / "solution" / "cuda"
     else:

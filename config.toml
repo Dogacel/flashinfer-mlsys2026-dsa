@@ -4,5 +4,6 @@ definition = "dsa_sparse_attention_h16_ckv512_kpe64_topk2048_ps64"     # Track: 
 author = "Doğaç Eldenk"             # Team/author name
 
 [build]
-language = "triton"                 # triton | cuda
-entry_point = "kernel.py::kernel"   # Kernel function name
+language = "triton"                 # triton | cuda (cutedsl uses triton builder)
+source_dir = "triton"               # Source directory under solution/
+entry_point = "fused.py::kernel"    # Kernel function name
